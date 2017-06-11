@@ -1,17 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Blocipedia</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-  <ul>
-     <li><%= link_to "Home", welcome_index_path %></li>
-     <li><%= link_to "About", welcome_about_path %></li>
-  </ul>
-<%= yield %>
-
-</body>
+  <head>
+    <title>Blocipedia</title>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <ul>
+      <li><%= link_to "Home", welcome_index_path %></li>
+      <li><%= link_to "About", welcome_about_path %></li>
+    </ul>
+    <%= yield %>
+    <!-- Check if the user signed in. If so, display their email address w/unique identifier and button to sign out. -->
+    <% if user_signed_in? %>
+      Signed in as: <strong><%= current_user.email %></strong>
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> -
+      <%= link_to "Sign Out", destroy_user_session_path, method: :delete, :class => 'navbar-link' %>
+      <% else %>
+        <!-- we display Sign up and Sign in buttons if the user is not logged in. -->
+      <%= link_to "Sign Up", new_user_registration_path, :class => 'navbar-link' %> -
+      <%= link_to "Sign In", new_user_session_path, :class => 'navbar-link' %>
+    <% end %>
+  </body>
 </html>
