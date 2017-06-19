@@ -7,10 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 require 'random_data'
 
+
 10.times do
   Wiki.create!(
-    title: RandomData.random_sentence,
-    body: RandomData.random_paragraph
+  user: Faker::StarWars.character
+  title: Faker::StarWars.wookie_sentence
+  body: Faker::StarWars.quote
   )
 
   wikis = Wiki.all

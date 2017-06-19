@@ -4,7 +4,7 @@
     <head>
       <title id="logo">Blocipedia</title>
       <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-      <%= javascript_include_tag 'application', 'data-turbolinks-track' => false %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
       <%= csrf_meta_tags %>
     </head>
     <body>
@@ -36,8 +36,6 @@
               <% end %>
               <%= yield %>
             </div>
-            <p class="notice"><%= notice %></p>
-            <p class="alert"><%= alert %></p>
             <!-- Check if the user signed in. If so, display their email address w/unique identifier and button to sign out. -->
                 <div><% if user_signed_in? == false %>
                     <!-- we display Sign up and Sign in buttons if the user is not logged in. -->

@@ -14,9 +14,9 @@ before_action :authenticate_user!
   end
 
   def create
-    @wiki = Wiki.new
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
+    @wiki = current_user.wikis.create(wiki_params)   	
+    # @wiki.title = params[:wiki][:title]
+    #@wiki.body = params[:wiki][:body
 
     if @wiki.save
       flash[:notice] = "Wiki post saved."
@@ -50,7 +50,7 @@ before_action :authenticate_user!
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
-      redirect_to @wiki
+      redirect_to wikis_path
     else
       flash.now[:alert] = "There was an error deleting the post."
       render :show
@@ -58,6 +58,10 @@ before_action :authenticate_user!
   end
 
   private
+
+  def wiki_params
+    params.require(:wiki).permit(:body, :title, :private)
+  end
 
 
 end
