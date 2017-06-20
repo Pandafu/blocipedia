@@ -1,8 +1,24 @@
-<h1>Wiki Posts</h1>
+<table class="table table-bordered table-striped table-condensed table-hover">
+  <thead>
+  <tr>
+    <th>Title</th>
+    <th>Body</th>
+    <th colspan="3"></th>
+  </tr>
+  </thead>
 
-<% @wikis.each do |wiki| %>
-<ul>
-  <%= link_to wiki.title, wiki_path(wiki)%>
-</ul>
-<% end %>
-<%= link_to "Add Wiki", new_wiki_path, class: 'btn btn-success' %>
+    <tbody>
+      <% @wikis.each do |wiki| %>
+        <tr>
+          <td><%= link_to wiki.title, wiki_path(wiki)%></td>
+          <td><%= link_to 'Show', wiki %></td>
+          <td><%= link_to 'Edit', edit_wiki_path(wiki) %></td>
+          <td><%= link_to 'Destroy', wiki, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+</table>
+
+ <br>
+
+  <%= link_to "Add Wiki", new_wiki_path, class: 'btn btn-success' %>

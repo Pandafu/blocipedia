@@ -1,22 +1,26 @@
 class WikisController < ApplicationController
-before_action :authenticate_user!
+before_action :set_wiki, only: [:show, :edit, :update, :destroy]
 
   def index
     @wikis = Wiki.all
+    authorize @wikis
   end
 
   def show
-    @wiki = Wiki.find(params[:id])
+    #@wiki = Wiki.find(params[:id])
   end
 
   def new
     @wiki = Wiki.new
+    authorize @wiki
   end
 
   def create
-    @wiki = current_user.wikis.create(wiki_params)   	
-    # @wiki.title = params[:wiki][:title]
-    #@wiki.body = params[:wiki][:body
+    @wiki = current_user.wikis.create(wiki_params)
+    @wiki.user = current_user
+    authorize @wiki
+     @wiki.title = params[:wiki][:title]
+    @wiki.body = params[:wiki][:body]
 
     if @wiki.save
       flash[:notice] = "Wiki post saved."
@@ -59,9 +63,13 @@ before_action :authenticate_user!
 
   private
 
-  def wiki_params
-    params.require(:wiki).permit(:body, :title, :private)
+  def set_wiki
+    @wiki = Wiki.find(params[:id])
+    authorize @wiki
   end
 
+  def wiki_params
+    params.require(:wiki).permit(:body, :title, :user_id)
+  end
 
 end

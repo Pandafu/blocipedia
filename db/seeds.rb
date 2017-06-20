@@ -5,18 +5,18 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-require 'random_data'
 
 
 10.times do
-  Wiki.create!(
-  user: Faker::StarWars.character
-  title: Faker::StarWars.wookie_sentence
-  body: Faker::StarWars.quote
-  )
+  Wiki.create!([{
+    user_id: 1,
+    title: Faker::StarWars.wookie_sentence,
+    body: Faker::StarWars.quote,
+    private: [true, false].sample
+  }])
 
   wikis = Wiki.all
 end
 
 puts "Seed finished"
-puts "#{Wiki.count} wikis created"
+puts "10 wikis created"

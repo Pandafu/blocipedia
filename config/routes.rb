@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   resources :users
   resources :wikis
   get 'about' => 'welcome#about'
-  root 'welcome#index'
+  root 'wikis#index'
 
 
 
