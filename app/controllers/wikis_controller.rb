@@ -16,6 +16,7 @@ before_action :set_wiki, only: [:show, :edit, :update, :destroy]
   end
 
   def create
+    #@wiki = Wiki.new(wiki_params)
     @wiki = current_user.wikis.create(wiki_params)
     @wiki.user = current_user
     authorize @wiki
@@ -32,7 +33,7 @@ before_action :set_wiki, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
-    @wiki = Wiki.find(params[:id])
+    #@wiki = Wiki.find(params[:id])
   end
 
   def update
@@ -40,7 +41,7 @@ before_action :set_wiki, only: [:show, :edit, :update, :destroy]
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
 
-    if @wiki.save
+    if @wiki.update(article_params)
       flash[:notice] = "Wiki post was updated."
       redirect_to @wiki
     else

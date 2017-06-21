@@ -9,7 +9,7 @@
 
 10.times do
   Wiki.create!([{
-    user_id: 1,
+    user_id: Faker::StarWars.character,
     title: Faker::StarWars.wookie_sentence,
     body: Faker::StarWars.quote,
     private: [true, false].sample
