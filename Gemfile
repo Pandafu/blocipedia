@@ -31,10 +31,12 @@ gem 'turbolinks'
 
 gem 'bootstrap-sass'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'figaro'
+gem 'figaro', '1.0'
 gem 'bcrypt'
 gem 'devise'
 gem 'pundit'
+gem 'stripe'
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

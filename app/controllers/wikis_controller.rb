@@ -37,7 +37,7 @@ before_action :set_wiki, only: [:show, :edit, :update, :destroy]
   end
 
   def update
-    @wiki = Wiki.find(params[:id])
+    #@wiki = Wiki.find(params[:id])
     @wiki.title = params[:wiki][:title]
     @wiki.body = params[:wiki][:body]
 
@@ -51,7 +51,7 @@ before_action :set_wiki, only: [:show, :edit, :update, :destroy]
   end
 
   def destroy
-    @wiki = Wiki.find(params[:id])
+    #@wiki = Wiki.find(params[:id])
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."

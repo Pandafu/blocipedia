@@ -1,10 +1,18 @@
 Rails.application.routes.draw do
   devise_for :users
-  resources :users
-  resources :wikis
-  get 'about' => 'welcome#about'
-  root 'wikis#index'
 
+    root 'welcome#home'
+  #resources :charges, only: [:new, :create]
+  get 'about' => 'welcome#about'
+
+  resources :wikis
+
+  get 'signup' => 'users#new'
+  resources :users, except: [:new]
+
+  get 'login' => 'sessions#new'
+  post 'login' => 'sessions#create'
+  delete 'logout' => 'sessions#destroy'
 
 
   # The priority is based upon order of creation: first created -> highest priority.
