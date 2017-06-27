@@ -37,9 +37,12 @@ ActiveRecord::Schema.define(version: 20170625215040) do
     t.text     "body"
     t.boolean  "private"
     t.integer  "user_id"
+    t.integer  "wikis_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_wikis_on_user_id"
   end
+
+  add_index "wikis", ["user_id"], name: "index_wikis_on_user_id"
+  add_index "wikis", ["wikis_id"], name: "index_wikis_on_wikis_id"
 
 end
