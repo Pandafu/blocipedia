@@ -11,8 +11,8 @@
     <tbody>
       <% @wikis.each do |wiki| %>
         <tr>
-          <td><%= link_to wiki.title, wiki_path(wiki)%></td>
-          <td><%= link_to 'Show', wiki %></td>
+          <td><%= wiki.title %></td>
+          <td><%= link_to 'Show', wiki_path(wiki) %></td>
           <td><%= link_to 'Make Changes', edit_wiki_path(wiki) %></td>
           <td><%= link_to 'Delete', wiki, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         </tr>
