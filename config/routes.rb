@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
   devise_for :users
 
-    root 'welcome#home'
-  #resources :charges, only: [:new, :create]
-  get 'about' => 'welcome#about'
-
   resources :wikis
+  resources :charges, only: [:new, :create]
+  resources :roles
+
+    root 'welcome#home'
+  get 'about' => 'welcome#about'
+  #get 'roles/:id', to: 'roles#new'
 
 #  get 'signup' => 'users#new'
   #resources :users, except: [:new]

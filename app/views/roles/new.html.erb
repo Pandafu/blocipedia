@@ -1,0 +1,10 @@
+<%= render 'layouts/messages' %>
+
+  <div class="radio">
+  <label><input type="radio" name="Standard">Option 1</label>
+</div>
+<div class="radio">
+  <label><input type="radio" name="Premium">Option 2</label>
+</div>
+
+<%= button_to 'Click here to pay', new_charge_path(current_user) %>
