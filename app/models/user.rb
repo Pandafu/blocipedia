@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
     enum role: [:standard, :premium, :admin]
 
     after_initialize :set_default_role
@@ -7,6 +6,7 @@ class User < ActiveRecord::Base
     def set_default_role
       self.role ||= :standard
     end
+
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable

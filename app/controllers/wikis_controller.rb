@@ -1,7 +1,6 @@
 class WikisController < ApplicationController
-  before_action :sign_in_required, except: [:index, :show]
-  before_action :authorize_user, except: [:index, :show, :new, :edit, :create, :update]
-
+  before_action :authenticate_user!
+  
   def index
     @wikis = Wiki.all
   end
@@ -48,6 +47,7 @@ class WikisController < ApplicationController
 
   def destroy
     @wiki = Wiki.find(params[:id])
+    authorize @wiki
 
     if @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
@@ -62,12 +62,5 @@ class WikisController < ApplicationController
 
   def wiki_params
     params.require(:wiki).permit(:body, :title, :private)
-  end
-
-  def authorize_user
-    unless current_user.admin?
-      flash[:alert] = "You are not authorized to do that."
-      redirect_to wikis_path
-    end
   end
 end
