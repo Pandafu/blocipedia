@@ -10,4 +10,15 @@ class WikiPolicy < ApplicationPolicy
     user.present?
   end
 
+  def destroy?
+    user.admin?
+  end
+
+  def create?
+    if user.premium? && wiki.private?
+      return true
+    else
+      return false
+    end
+  end
 end

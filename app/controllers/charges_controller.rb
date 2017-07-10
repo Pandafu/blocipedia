@@ -1,4 +1,5 @@
 class ChargesController < ApplicationController
+before_action :set_downgrade_wiki, only: :destroy
 
   def create
   # Creates a Stripe Customer object, for associating
@@ -9,7 +10,7 @@ class ChargesController < ApplicationController
     email: current_user.email,
     card: params[:stripeToken]
   )
-  
+
   current_user.update_attribute(:role, 'premium')
 
    #Where the real magic happens
@@ -42,12 +43,21 @@ class ChargesController < ApplicationController
   def destroy
     current_user.update_attribute(:role, 'standard')
 
+
     if current_user.role == 'standard'
       flash[:notice] = "You now have #{current_user.role}. You can always upgrade again, anytime."
       redirect_to wikis_path
     else
       flash[:error] = "Error"
       redirect_to edit_user_registration_path
+    end
+  end
+
+  private
+
+  def set_downgrade_wiki
+    current_user.wikis.each do |wiki|
+      wiki.update_attribute(:private, false)
     end
   end
 end

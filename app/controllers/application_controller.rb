@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit
 
-
   rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   protect_from_forgery with: :exception
 
@@ -15,6 +14,7 @@ class ApplicationController < ActionController::Base
       redirect_to user_session_path
     end
   end
+
 
   private
 

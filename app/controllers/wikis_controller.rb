@@ -1,8 +1,12 @@
 class WikisController < ApplicationController
   before_action :authenticate_user!
-  
+
   def index
-    @wikis = Wiki.all
+    if current_user.standard?
+      @wikis = Wiki.where(private: false)
+    else
+      @wikis = Wiki.all
+    end
   end
 
   def show
@@ -32,11 +36,9 @@ class WikisController < ApplicationController
 
   def update
     @wiki = Wiki.find(params[:id])
-    @wiki.title = params[:wiki][:title]
-    @wiki.body = params[:wiki][:body]
     authorize @wiki
 
-    if @wiki.save
+    if @wiki.update(wiki_params)
       flash[:notice] = "Wiki post was updated."
       redirect_to @wiki
     else
@@ -49,13 +51,9 @@ class WikisController < ApplicationController
     @wiki = Wiki.find(params[:id])
     authorize @wiki
 
-    if @wiki.destroy
+    @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
-    else
-      flash.now[:alert] = "There was an error deleting the post."
-      render :show
-    end
   end
 
   private
