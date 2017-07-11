@@ -13,7 +13,22 @@
 
   <div class="row">
     <div class="col-md-4">
-      <h1>Wikis#form</h1>
+      <h2>Wiki Form</h2>
+      <h4>Markdown friendly! Try it:</h4>
+          <ul>
+            <li>Heading</li>
+              <ul>
+                <li># Heading 1</li>
+                <li>## Heading 2</li>
+              </ul>
+            </li>
+            <li>Blockquote</li>
+              <ul>
+                <li>> Blockquote.</li>
+                <li>> > Second paragraph in the blockquote, nested.</li>
+                <li>> ## This is an h2 in a blockquote</li>
+              </ul>
+          </ul>
     </div>
     <div class="col-md-8">
         <%= form_for @wiki do |f| %>

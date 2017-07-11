@@ -3,3 +3,11 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+h1 {
+  text-align: center;
+}
+
+h2, h3, h4 {
+  text-align: left;
+}

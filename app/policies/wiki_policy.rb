@@ -15,10 +15,6 @@ class WikiPolicy < ApplicationPolicy
   end
 
   def create?
-    if user.premium? && wiki.private?
-      return true
-    else
-      return false
-    end
+    user.premium? && wiki.private?
   end
 end
