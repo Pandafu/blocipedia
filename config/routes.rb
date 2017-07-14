@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :wikis
   resources :charges, only: [:new, :create, :destroy]
 
+  post 'add_collaborator/:id' => 'wikis#add_as_collaborator', as: "add_collaborator"
+  get 'remove_collaborator/:id' => 'wikis#remove_as_collaborator', as: "remove_collaborator"
 
     root 'welcome#home'
   get 'about' => 'welcome#about'

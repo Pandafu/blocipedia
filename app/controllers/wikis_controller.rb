@@ -2,11 +2,7 @@ class WikisController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    if current_user.standard?
-      @wikis = Wiki.where(private: false)
-    else
-      @wikis = Wiki.all
-    end
+    @wikis = policy_scope(Wiki)
   end
 
   def show
@@ -54,6 +50,30 @@ class WikisController < ApplicationController
     @wiki.destroy
       flash[:notice] = "\"#{@wiki.title}\" was deleted successfully."
       redirect_to wikis_path
+  end
+
+  def add_as_collaborator
+    @wiki = Wiki.find(params[:id])
+    collaborator = User.find_by(email: params[:collaborator_email])
+    #check if the wiki exists and check if user is authorize
+    #check if collaborator doesn't exist
+      if current_user.premium? || current_user.admin?
+        @wiki.add_collaborator(collaborator)
+      end
+        redirect_to @wiki
+  end
+
+  def remove_as_collaborator
+    @wiki = Wiki.find(params[:id])
+    collaborator = User.find(params[:user_id])
+    if current_user.premium? || current_user.admin?
+      if @wiki.check_collaborator(collaborator)
+        @wiki.remove_collaborator(collaborator)
+      else
+        flash.now[:alert] = "The user is not a collaborator."
+      end
+    end
+      redirect_to @wiki
   end
 
   private

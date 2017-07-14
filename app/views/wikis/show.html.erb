@@ -3,6 +3,19 @@
      <div class="col-md-8">
         <p><%= markdown(@wiki.body) %></p>
      </div>
+     <% if current_user.admin? || current_user.premium? %>
+       <div>
+         <% @wiki.collaborators.each do |collaborator| %>
+         <p><%= collaborator.user.email %> <%= link_to "Remove collaborators", remove_collaborator_path(@wiki, user_id: collaborator.user.id) %> </p>
+         <% end %>
+       </div>
+       <div>
+         <%= form_tag add_collaborator_path(@wiki) do %>
+          <p><%= text_field_tag "collaborator_email" %></p>
+          <%= submit_tag "Add" %>
+          <% end %>
+       </div>
+     <% end %>
        <div class="col-md-4">
         <% if current_user %>
           <%= link_to "Edit", edit_wiki_path(@wiki), class: 'btn btn-success' %>

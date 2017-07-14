@@ -7,11 +7,10 @@ class User < ActiveRecord::Base
       self.role ||= :standard
     end
 
-
-
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   has_many :wikis
+  delegate :collaborators, to: :wikis
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
